@@ -1,0 +1,18 @@
+For Development Test
+Please import the attached ColorSort.jar file into your JAVA IDE, then run it as application, after that, the results will show up in the console. 
+You can change the value in the Input array to see the difference in the outcome.
+It utilized Breadth First Search algorithm to traveral the nodes and find out the same color block. No recursion was used to avoid performance issue.
+
+For AWS Test
+My solution is to use Load Balancer to connect to the instance on a private subnet. Details as followings:
+1. Create a VPC.
+2. Create 2 public subnets and 2 private subnets in the VPC.
+3. Create a internet gateway and attach it to the VPC.
+4. Create a route table which has a route to internet gateway and associated with the public subnets, so the public subnets can have internet access.
+5. Create a NAT gateway with allocation of a elastic IP.
+6. Create a route table which has a route to NAT and associated with the private subnets.
+7. Create a AWS Linux EC2 instance on every private subnet which has Apache installed and running, and a index.html file.
+8. Create a Application Load Balancer on the public subnets and add the EC2 instances into the ALB.
+9. Create 2 security groups, one for instances, another for Load Balancer, both of them should open port 80, so HTTP request can reach the EC2 instance through ELB.
+
+I have written a Cloudformation script named ALB-PrivateSubnet.yaml for the above operations, please run it in Cloudformation console, it should complete successfully, then go to the 'Load Balancers' tab on the left panel, find and copy the DNS name, open it in your browser, you shall see the website.
